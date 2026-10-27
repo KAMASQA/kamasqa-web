@@ -1,0 +1,375 @@
+---
+import "../../styles/serviceDetail.css";
+import Base from "../../layouts/Base.astro";
+import { services, wa } from "../../data/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+---
+
+<Base
+  title={`${service.name} | KAMASQA — Especificación & Desarrollo`}
+  description={service.description}
+>
+  <!-- Hero Editorial del Servicio -->
+  <section class="srv-editorial-hero">
+    <div class="container-wide">
+      <div class="seh-top-nav">
+        <a href="/#servicios" class="seh-back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 19"></polyline>
+          </svg>
+          <span>Volver a servicios</span>
+        </a>
+      </div>
+
+      <div class="seh-split-grid">
+        <!-- Columna Izquierda: Información Principal & Acciones -->
+        <div class="seh-main-col">
+          <h1 class="seh-title">{service.name}</h1>
+          <p class="seh-desc">{service.description}</p>
+
+          <div class="seh-chips-row">
+            <div class="seh-chip">
+              <span class="sc-label">Plazo estimado</span>
+              <strong class="sc-val">⏱ {service.time}</strong>
+            </div>
+            <div class="seh-chip">
+              <span class="sc-label">Inversión</span>
+              <strong class="sc-val">A cotización formal</strong>
+            </div>
+          </div>
+
+          <div class="seh-actions">
+            <a
+              href={wa(service.msg)}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-pill-action"
+            >
+              <span>Cotizar {service.name} por WhatsApp</span>
+              <span class="action-arrow-circle" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </a>
+
+            <a href="/#metodo" class="btn-editorial-ghost">
+              <span>Ver metodología</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta Editorial de Rendimiento y Aplicación -->
+        <aside class="seh-spec-aside">
+          <div class="spec-card-editorial">
+            <div class="spe-head">
+              <svg class="spe-head-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              <span class="spe-title">Rendimiento & Impacto</span>
+            </div>
+
+            <!-- Métricas Clave -->
+            <div class="spe-metrics-grid">
+              {service.metrics.map((m) => (
+                <div class="spe-metric-item">
+                  <span class="spe-m-val">{m.val}</span>
+                  <span class="spe-m-label">{m.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="spe-block">
+              <span class="spe-block-title">¿Para quién está pensado?</span>
+              <p class="spe-block-text">{service.forWho}</p>
+            </div>
+
+            <div class="spe-block">
+              <span class="spe-block-title">Escenarios de mayor impacto:</span>
+              <ul class="spe-cases-list">
+                {service.idealCases.map((c) => (
+                  <li>
+                    <span class="spe-check">✓</span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Entregables de Ingeniería del Servicio -->
+  <section class="section srv-deliverables-section">
+    <div class="container-wide">
+      <header class="section-head-editorial">
+        <h2 class="she-title">Lo que incluye tu proyecto de {service.name}</h2>
+        <p class="she-lead">
+          Cada componente se construye con código limpio, arquitectura rápida y dirección visual profesional.
+        </p>
+      </header>
+
+      <div class="deliv-carousel-wrapper" id="deliv-carousel-wrap">
+        <div class="deliverables-editorial-grid" id="deliv-track">
+          {service.deliverables.map((d, idx) => (
+            <article class="deliv-editorial-card" data-deliv-card={idx}>
+              <div class="dec-header">
+                <span class="dec-number">0{idx + 1}</span>
+                <span class="dec-status">Incluido</span>
+              </div>
+              <h3 class="dec-title">{d.title}</h3>
+              <p class="dec-desc">{d.desc}</p>
+            </article>
+          ))}
+        </div>
+
+        <!-- Controles Móviles para Carrusel de Entregables -->
+        <div class="deliv-mobile-controls" id="deliv-controls">
+          <button type="button" class="dm-arrow-btn" id="deliv-prev" aria-label="Entregable anterior">‹</button>
+          <div class="dm-dots" id="deliv-dots">
+            {service.deliverables.map((_, i) => (
+              <button
+                type="button"
+                class={`dm-dot ${i === 0 ? "active" : ""}`}
+                data-deliv-dot={i}
+                aria-label={`Ir al entregable ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button type="button" class="dm-arrow-btn" id="deliv-next" aria-label="Siguiente entregable">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Especificaciones Técnicas de Serie -->
+  <section class="section srv-features-section">
+    <div class="container-wide">
+      <div class="features-editorial-box">
+        <header class="feb-header">
+          <h2 class="she-title" style="margin-bottom: 0.5rem;">Especificaciones técnicas de serie</h2>
+          <p class="she-lead">
+            Sin costos sorpresa ni módulos ocultos. Todo lo necesario para operar y vender con seguridad.
+          </p>
+        </header>
+
+        <div class="feb-features-grid">
+          {service.features.map((f) => (
+            <div class="feb-feature-item">
+              <span class="feb-icon">✓</span>
+              <span class="feb-text">{f}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Otros Servicios Relacionados -->
+  <section class="section srv-others-section">
+    <div class="container-wide">
+      <header class="section-head-editorial">
+        <h2 class="she-title">Explora otros formatos web</h2>
+      </header>
+
+      <div class="others-carousel-wrapper" id="others-carousel-wrap">
+        <div class="others-editorial-grid" id="others-track">
+          {others.map((os, idx) => (
+            <article class="other-card-editorial" data-other-card={idx}>
+              <div class="oce-meta">
+                <span class="oce-tag">{os.tag}</span>
+                <span class="oce-time">⏱ {os.time}</span>
+              </div>
+              <h3 class="oce-title">
+                <a href={`/servicios/${os.slug}`}>{os.name}</a>
+              </h3>
+              <p class="oce-desc">{os.short}</p>
+              <div class="oce-footer">
+                <a href={`/servicios/${os.slug}`} class="link-pill-lime">
+                  <span>Ver especificación</span>
+                  <span class="lime-dot-arrow" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Controles Móviles para Otros Servicios -->
+        <div class="others-mobile-controls" id="others-controls">
+          <button type="button" class="om-arrow-btn" id="others-prev" aria-label="Formato anterior">‹</button>
+          <div class="om-dots" id="others-dots">
+            {others.map((_, i) => (
+              <button
+                type="button"
+                class={`om-dot ${i === 0 ? "active" : ""}`}
+                data-other-dot={i}
+                aria-label={`Ir al formato ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button type="button" class="om-arrow-btn" id="others-next" aria-label="Siguiente formato">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversión Directa de Servicio -->
+  <section class="srv-cta-strip">
+    <div class="container-wide">
+      <div class="scs-card">
+        <div class="scs-copy">
+          <h3 class="scs-title">¿Listo para comenzar con tu {service.name}?</h3>
+          <p class="scs-desc">
+            Conversemos 15 minutos sin compromiso. Te brindamos una cotización técnica por escrito con plazos y presupuesto cerrado.
+          </p>
+        </div>
+        <div class="scs-action">
+          <a
+            href={wa(service.msg)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Cotizar por WhatsApp</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+
+
+<script>
+  // Control de carruseles interactivos en móvil para entregables y otros servicios con autoplay de 5 segundos
+  const initDetailCarousel = (trackId: string, dotsSelector: string, prevId: string, nextId: string, autoInterval = 5000) => {
+    const track = document.getElementById(trackId);
+    const dots = document.querySelectorAll<HTMLButtonElement>(dotsSelector);
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
+
+    if (!track || dots.length === 0) return;
+
+    let activeIdx = 0;
+    const total = dots.length;
+    let autoTimer: number | null = null;
+
+    const scrollTo = (idx: number) => {
+      const cards = track.children;
+      const card = cards[idx] as HTMLElement;
+      if (card) {
+        const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+        track.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
+      }
+      activeIdx = idx;
+      dots.forEach((d, i) => d.classList.toggle("active", i === activeIdx));
+    };
+
+    const updateDotsOnScroll = () => {
+      const scrollLeft = track.scrollLeft;
+      const card = track.children[0] as HTMLElement;
+      const cardWidth = card ? card.offsetWidth + 16 : 280;
+      const calcIdx = Math.round(scrollLeft / cardWidth);
+      const clamped = Math.max(0, Math.min(total - 1, calcIdx));
+      if (clamped !== activeIdx) {
+        activeIdx = clamped;
+        dots.forEach((d, i) => d.classList.toggle("active", i === activeIdx));
+      }
+    };
+
+    const startAutoplay = () => {
+      if (autoTimer) clearInterval(autoTimer);
+      if (window.innerWidth <= 860) {
+        autoTimer = window.setInterval(() => {
+          const next = (activeIdx + 1) % total;
+          scrollTo(next);
+        }, autoInterval);
+      }
+    };
+
+    const stopAutoplay = () => {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    track.addEventListener("scroll", updateDotsOnScroll, { passive: true });
+
+    let touchStartX = 0;
+    track.addEventListener("touchstart", (e) => {
+      stopAutoplay();
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    track.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) {
+          scrollTo((activeIdx + 1) % total);
+        } else {
+          scrollTo((activeIdx - 1 + total) % total);
+        }
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        stopAutoplay();
+        scrollTo(idx);
+        startAutoplay();
+      });
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      stopAutoplay();
+      const next = (activeIdx - 1 + total) % total;
+      scrollTo(next);
+      startAutoplay();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      stopAutoplay();
+      const next = (activeIdx + 1) % total;
+      scrollTo(next);
+      startAutoplay();
+    });
+
+    startAutoplay();
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 860) stopAutoplay();
+      else startAutoplay();
+    }, { passive: true });
+  };
+
+  initDetailCarousel("deliv-track", "#deliv-dots .dm-dot", "deliv-prev", "deliv-next", 5000);
+  initDetailCarousel("others-track", "#others-dots .om-dot", "others-prev", "others-next", 5000);
+</script>

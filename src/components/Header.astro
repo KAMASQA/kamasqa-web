@@ -1,0 +1,417 @@
+---
+import "../styles/header.css";
+import { nav, wa, site } from "../data/site";
+---
+
+<header class="header" id="header">
+  <div class="container-wide header-container">
+    <!-- Logotipo: Icono + AMASQA -->
+    <a href="/" class="logo" aria-label="KAMASQA, ir al inicio">
+      <span class="logo-mark" aria-hidden="true">
+        <img src="/icon.png" alt="" width="32" height="32" decoding="async" />
+      </span>
+      <span class="logo-text">AMASQA</span>
+    </a>
+
+    <!-- Navegación Central Editorial -->
+    <nav class="nav-links" aria-label="Navegación principal">
+      {nav.map((l) => (
+        <a href={l.href} data-nav={l.href} class="nav-item">
+          <span data-i18n-nav={l.label}>{l.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <!-- Acciones Derecha: Idioma + Tema + CTA Pill -->
+    <div class="actions">
+      <!-- Selector de Idioma ES / EN -->
+      <div class="lang-dropdown" id="lang-dropdown">
+        <button
+          type="button"
+          class="lang-trigger"
+          id="lang-trigger"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-label="Cambiar idioma / Change language"
+        >
+          <span class="flag-slot" id="active-flag">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#D91023" />
+              <rect x="8" width="8" height="16" fill="#FFFFFF" />
+            </svg>
+          </span>
+          <span class="lang-code" id="active-lang-code">ES</span>
+          <svg class="lang-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Seleccionar idioma">
+          <li role="option" aria-selected="true" data-lang-opt="es" class="lang-opt active">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#D91023" />
+              <rect x="8" width="8" height="16" fill="#FFFFFF" />
+            </svg>
+            <span class="opt-code">ES</span>
+            <span class="opt-check">✓</span>
+          </li>
+          <li role="option" aria-selected="false" data-lang-opt="en" class="lang-opt">
+            <svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true">
+              <rect width="24" height="16" rx="2" fill="#B22234" />
+              <path d="M0 2.46h24M0 4.92h24M0 7.38h24M0 9.85h24M0 12.31h24M0 14.77h24" stroke="#FFFFFF" stroke-width="1.23" />
+              <rect width="10.5" height="8.62" rx="1" fill="#3C3B6E" />
+              <circle cx="2.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="5.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="8.2" cy="2" r="0.6" fill="#FFF" />
+              <circle cx="3.7" cy="4.3" r="0.6" fill="#FFF" />
+              <circle cx="6.7" cy="4.3" r="0.6" fill="#FFF" />
+              <circle cx="2.2" cy="6.6" r="0.6" fill="#FFF" />
+              <circle cx="5.2" cy="6.6" r="0.6" fill="#FFF" />
+              <circle cx="8.2" cy="6.6" r="0.6" fill="#FFF" />
+            </svg>
+            <span class="opt-code">EN</span>
+            <span class="opt-check">✓</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Alternador Modo Día / Modo Noche -->
+      <button
+        type="button"
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Cambiar modo claro / oscuro"
+        title="Alternar tema"
+      >
+        <span class="theme-icon sun-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <line x1="12" y1="2" x2="12" y2="4.5"></line>
+            <line x1="12" y1="19.5" x2="12" y2="22"></line>
+            <line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line>
+            <line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line>
+            <line x1="2" y1="12" x2="4.5" y2="12"></line>
+            <line x1="19.5" y1="12" x2="22" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line>
+            <line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
+        <span class="theme-icon moon-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 14.2A8.6 8.6 0 0 1 9.8 3.2a8.6 8.6 0 1 0 11 11Z"></path>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Botón de Contacto Directo -->
+      <a href={wa()} target="_blank" rel="noopener noreferrer" class="cta-pill">
+        <span data-i18n-cta="Escríbenos">Escríbenos</span>
+        <span class="cta-lime-circle" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
+
+      <!-- Hamburguesa Móvil -->
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-drawer">
+        <span class="b-line top"></span>
+        <span class="b-line bot"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Backdrop con efecto difuminado que deja ver la web debajo -->
+  <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile Drawer: Diseño Minimalista, Arquitectónico y Compacto -->
+  <div class="mobile-drawer" id="mobile-drawer" inert>
+    <div class="drawer-inner">
+      <!-- 1. Cabecera con Marca y Botón Cerrar -->
+      <div class="md-header">
+        <a href="/" class="md-brand" aria-label="KAMASQA, ir al inicio">
+          <img src="/icon.png" alt="" width="26" height="26" decoding="async" />
+          <span class="md-brand-name">AMASQA</span>
+        </a>
+        <button type="button" class="md-close-btn" id="drawer-close-btn" aria-label="Cerrar menú">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 2. Lista de Navegación Editorial -->
+      <nav class="md-nav-list" aria-label="Navegación móvil">
+        <a href="/" class="md-nav-item" data-nav="/">
+          <span class="md-nav-num">01</span>
+          <span class="md-nav-title" data-i18n-nav="Inicio">Inicio</span>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#servicios" class="md-nav-item" data-nav="/#servicios">
+          <span class="md-nav-num">02</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Servicios">Servicios</span>
+            <span class="md-nav-sub">Landing pages, tiendas y desarrollo</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#metodo" class="md-nav-item" data-nav="/#metodo">
+          <span class="md-nav-num">03</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Método">Método</span>
+            <span class="md-nav-sub">Proceso claro en 4 fases</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/#faq" class="md-nav-item" data-nav="/#faq">
+          <span class="md-nav-num">04</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Preguntas">Preguntas</span>
+            <span class="md-nav-sub">Dudas y cotizaciones resueltas</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/portafolio" class="md-nav-item" data-nav="/portafolio">
+          <span class="md-nav-num">05</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Portafolio">Portafolio</span>
+            <span class="md-nav-sub">Casos de éxito y proyectos</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="/perfil" class="md-nav-item" data-nav="/perfil">
+          <span class="md-nav-num">06</span>
+          <div class="md-nav-copy">
+            <span class="md-nav-title" data-i18n-nav="Perfil">Perfil</span>
+            <span class="md-nav-sub">Filosofía, estándares y equipo</span>
+          </div>
+          <span class="md-nav-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
+      <!-- 3. Dock de Preferencias: Selector de Idioma y Tema -->
+      <div class="md-dock">
+        <!-- Idioma ES / EN en píldora segmentada -->
+        <div class="md-lang-group" role="group" aria-label="Idioma">
+          <button type="button" class="md-lang-btn active" data-drawer-lang="es">
+            <span>ES</span>
+          </button>
+          <button type="button" class="md-lang-btn" data-drawer-lang="en">
+            <span>EN</span>
+          </button>
+        </div>
+
+        <!-- Botón de Modo con Icono Idéntico al Header -->
+        <button
+          type="button"
+          class="theme-toggle md-theme-toggle"
+          id="drawer-theme-btn"
+          aria-label="Cambiar modo claro / oscuro"
+          title="Alternar tema"
+        >
+          <span class="theme-icon sun-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4.2"></circle>
+              <line x1="12" y1="2" x2="12" y2="4.5"></line>
+              <line x1="12" y1="19.5" x2="12" y2="22"></line>
+              <line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line>
+              <line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line>
+              <line x1="2" y1="12" x2="4.5" y2="12"></line>
+              <line x1="19.5" y1="12" x2="22" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line>
+              <line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon moon-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.8 14.2A8.6 8.6 0 0 1 9.8 3.2a8.6 8.6 0 1 0 11 11Z"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- 4. Botón de Acción Principal (WhatsApp Directo) -->
+      <a href={wa()} target="_blank" rel="noopener noreferrer" class="btn-pill-action md-cta">
+        <span>Iniciar chat directo</span>
+        <span class="action-arrow-circle" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
+      </a>
+
+      <!-- 5. Pie de Drawer: Contacto y Enlaces -->
+      <div class="md-foot">
+        <span class="md-contact-val">{site.phone} · {site.email}</span>
+        <div class="md-legals">
+          <a href="/politica-de-privacidad">Privacidad</a>
+          <span>·</span>
+          <a href="/terminos-y-condiciones">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("header")!;
+  const btn = document.getElementById("burger")!;
+  const drawer = document.getElementById("mobile-drawer")!;
+  const backdrop = document.getElementById("drawer-backdrop");
+  const closeBtn = document.getElementById("drawer-close-btn");
+  const drawerLangBtns = Array.from(document.querySelectorAll<HTMLElement>("[data-drawer-lang]"));
+  const drawerThemeBtn = document.getElementById("drawer-theme-btn");
+  const drawerThemeLabel = document.getElementById("drawer-theme-label");
+  const drawerThemeIcon = document.getElementById("drawer-theme-icon");
+
+  // Control del menú móvil y estado
+  const setMenu = (open: boolean) => {
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    btn.classList.toggle("open", open);
+    drawer.classList.toggle("open", open);
+    backdrop?.classList.toggle("open", open);
+    drawer.toggleAttribute("inert", !open);
+    if (open) {
+      document.documentElement.classList.add("drawer-open");
+    } else {
+      document.documentElement.classList.remove("drawer-open");
+    }
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isExpanded = btn.getAttribute("aria-expanded") === "true";
+    setMenu(!isExpanded);
+  });
+
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setMenu(false);
+  });
+
+  backdrop?.addEventListener("click", () => setMenu(false));
+
+  drawer.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  drawer.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => setMenu(false));
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenu(false);
+  });
+
+  window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => {
+    if (e.matches) setMenu(false);
+  });
+
+  // Transparencia vs Scrolled
+  const onScroll = () => {
+    header.classList.toggle("scrolled", window.scrollY > 20);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Selector Desplegable de Idioma
+  const langDropdown = document.getElementById("lang-dropdown");
+  const langTrigger = document.getElementById("lang-trigger");
+  const activeFlag = document.getElementById("active-flag");
+  const activeCode = document.getElementById("active-lang-code");
+  const langOpts = Array.from(document.querySelectorAll<HTMLElement>("[data-lang-opt]"));
+
+  const flagSVGs: Record<string, string> = {
+    es: `<svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#D91023"/><rect x="8" width="8" height="16" fill="#FFFFFF"/></svg>`,
+    en: `<svg class="flag-svg" viewBox="0 0 24 16" width="18" height="12" aria-hidden="true"><rect width="24" height="16" rx="2" fill="#B22234"/><path d="M0 2.46h24M0 4.92h24M0 7.38h24M0 9.85h24M0 12.31h24M0 14.77h24" stroke="#FFFFFF" stroke-width="1.23"/><rect width="10.5" height="8.62" rx="1" fill="#3C3B6E"/><circle cx="2.2" cy="2" r="0.6" fill="#FFF"/><circle cx="5.2" cy="2" r="0.6" fill="#FFF"/><circle cx="8.2" cy="2" r="0.6" fill="#FFF"/><circle cx="3.7" cy="4.3" r="0.6" fill="#FFF"/><circle cx="6.7" cy="4.3" r="0.6" fill="#FFF"/><circle cx="2.2" cy="6.6" r="0.6" fill="#FFF"/><circle cx="5.2" cy="6.6" r="0.6" fill="#FFF"/><circle cx="8.2" cy="6.6" r="0.6" fill="#FFF"/></svg>`,
+  };
+
+  const toggleLangMenu = (force?: boolean) => {
+    if (!langDropdown || !langTrigger) return;
+    const isOpen = force !== undefined ? force : !langDropdown.classList.contains("open");
+    langDropdown.classList.toggle("open", isOpen);
+    langTrigger.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  langTrigger?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleLangMenu();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (langDropdown && !langDropdown.contains(e.target as Node)) {
+      toggleLangMenu(false);
+    }
+  });
+
+  const applyHeaderLang = (lang: "es" | "en") => {
+    if (activeFlag) activeFlag.innerHTML = flagSVGs[lang] || flagSVGs.es;
+    if (activeCode) activeCode.textContent = lang.toUpperCase();
+    langOpts.forEach((opt) => {
+      const match = opt.dataset.langOpt === lang;
+      opt.classList.toggle("active", match);
+      opt.setAttribute("aria-selected", String(match));
+    });
+    drawerLangBtns.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.drawerLang === lang);
+    });
+    document.documentElement.lang = lang;
+    localStorage.setItem("kamasqa_lang", lang);
+    window.dispatchEvent(new CustomEvent("kamasqa:lang", { detail: { lang } }));
+  };
+
+  langOpts.forEach((opt) => {
+    opt.addEventListener("click", () => {
+      const chosen = (opt.dataset.langOpt as "es" | "en") || "es";
+      applyHeaderLang(chosen);
+      toggleLangMenu(false);
+    });
+  });
+
+  drawerLangBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const chosen = (btn.dataset.drawerLang as "es" | "en") || "es";
+      applyHeaderLang(chosen);
+    });
+  });
+
+  const savedLang = (localStorage.getItem("kamasqa_lang") as "es" | "en") || "es";
+  applyHeaderLang(savedLang);
+
+  // Alternador Modo Día / Noche
+  const themeToggle = document.getElementById("theme-toggle");
+  const applyTheme = (theme: "light" | "dark") => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("kamasqa_theme", theme);
+    if (themeToggle) {
+      themeToggle.setAttribute("data-active-theme", theme);
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "Activar Modo Claro" : "Activar Modo Oscuro");
+    }
+    if (drawerThemeBtn && drawerThemeLabel && drawerThemeIcon) {
+      if (theme === "dark") {
+        drawerThemeLabel.textContent = "Modo Claro";
+        drawerThemeIcon.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"></circle><line x1="12" y1="2" x2="12" y2="4.5"></line><line x1="12" y1="19.5" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line><line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4.5" y2="12"></line><line x1="19.5" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line><line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line></svg>`;
+      } else {
+        drawerThemeLabel.textContent = "Modo Oscuro";
+        drawerThemeIcon.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 14.2A8.6 8.6 0 0 1 9.8 3.2a8.6 8.6 0 1 0 11 11Z"></path></svg>`;
+      }
+    }
+  };
+
+  const savedTheme = (localStorage.getItem("kamasqa_theme") as "light" | "dark") || "light";
+  applyTheme(savedTheme);
+
+  const toggleTheme = () => {
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(current === "dark" ? "light" : "dark");
+  };
+
+  themeToggle?.addEventListener("click", toggleTheme);
+  drawerThemeBtn?.addEventListener("click", toggleTheme);
+</script>
+
+

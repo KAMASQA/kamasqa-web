@@ -1,0 +1,828 @@
+/* =========================================================
+  KAMASQA V3.1 - PALETA DE COLOR OFICIAL
+  - #6E7D4E : Verde Oliva / Musgo
+  - #D8E0C7 : Salvia Suave / Celadon
+  - #FFFFFF : Blanco Puro
+  - #AA7229 : Ocre Ambar / Bronce
+  - #F0C48C : Arena Albaricoque / Trigo Dorado
+   ========================================================= */
+
+:root {
+  /* 5 Colores Oficiales Kamasqa */
+  --c-olive: #6E7D4E;
+  --c-olive-dark: #4A5632;
+  --c-olive-deep: #2F381F;
+  --c-sage: #D8E0C7;
+  --c-sage-soft: #EEF3E6;
+  --c-white: #FFFFFF;
+  --c-amber: #AA7229;
+  --c-amber-dark: #8C5C1E;
+  --c-amber-light: #C48A3C;
+  --c-sand: #F0C48C;
+  --c-sand-soft: #FBF2E3;
+
+  /* Redirección Armoniosa de Acentos al Set Oficial de Colores */
+  --c-lime: #6E7D4E;
+  --c-lime-bright: #82945D;
+  --c-lime-dark: #4A5632;
+  --c-lime-soft: rgba(110, 125, 78, 0.16);
+  --c-lime-glow: rgba(170, 114, 41, 0.35);
+
+  /* Aliases semanticos */
+  --paper: #FAFBF9;
+  --paper-subtle: #F3F5EE;
+  --paper-card: #FFFFFF;
+  --ink: #0E140D;
+  --ink-soft: #3B4636;
+  --ink-muted: #6B7664;
+
+  /* Mapeo de roles */
+  --primary: var(--c-amber);
+  --primary-hover: var(--c-amber-dark);
+  --accent: var(--c-olive);
+  --accent-soft: var(--c-sage);
+  --highlight: var(--c-amber);
+
+  /* Compatibilidad con clases previas (clay, pine, sun) */
+  --clay: var(--c-amber);
+  --clay-dark: var(--c-amber-dark);
+  --pine: var(--c-olive);
+  --pine-dark: var(--c-olive-dark);
+  --sun: var(--c-sand);
+
+  --line: rgba(14, 20, 13, 0.08);
+  --line-strong: rgba(14, 20, 13, 0.15);
+
+  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --max: 1480px;
+  --max-wide: 1560px;
+  --radius-sm: 0.5rem;
+  --radius: 1.25rem;
+  --radius-lg: 2rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 4px 14px -3px rgba(27, 33, 20, 0.08);
+  --shadow: 0 16px 36px -18px rgba(27, 33, 20, 0.22);
+  --shadow-warm: 0 16px 34px -14px rgba(170, 114, 41, 0.35);
+  --shadow-olive: 0 16px 34px -14px rgba(110, 125, 78, 0.35);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  background-color: var(--paper);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+ul { list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--c-amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--c-sage);
+  color: var(--ink);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3.5vw, 3rem);
+}
+
+.container-wide {
+  width: 100%;
+  max-width: var(--max-wide);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 4rem);
+}
+
+.section {
+  padding: clamp(3.5rem, 8.5vw, 6.5rem) 0;
+  position: relative;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+  background: var(--c-sage-soft);
+  border: 1px solid var(--c-sage);
+  padding: 0.32rem 0.9rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1rem;
+}
+
+.h-xl { font-size: clamp(2.5rem, 6.5vw, 5rem); }
+.h-lg { font-size: clamp(2rem, 4.4vw, 3.25rem); }
+.lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 56ch; line-height: 1.65; }
+em.mark {
+  font-style: italic;
+  color: var(--c-amber);
+  position: relative;
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.9rem 1.65rem;
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-clay,
+.btn-amber {
+  background: var(--c-amber);
+  color: var(--c-white);
+  box-shadow: 0 8px 22px -6px rgba(170, 114, 41, 0.45);
+}
+.btn-clay:hover,
+.btn-amber:hover {
+  background: var(--c-amber-dark);
+  box-shadow: 0 12px 28px -6px rgba(170, 114, 41, 0.6);
+}
+
+.btn-olive {
+  background: var(--c-olive);
+  color: var(--c-white);
+  box-shadow: 0 8px 22px -6px rgba(110, 125, 78, 0.4);
+}
+.btn-olive:hover {
+  background: var(--c-olive-dark);
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-ink:hover {
+  background: var(--c-olive-dark);
+  color: var(--c-white);
+}
+
+.btn-ghost {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-wa {
+  background: #1fa855;
+  color: var(--c-white);
+  box-shadow: 0 8px 22px -6px rgba(31, 168, 85, 0.45);
+}
+.btn-wa:hover {
+  background: #178a44;
+}
+
+.btn-light {
+  background: var(--c-white);
+  color: var(--ink);
+  border: 1.5px solid var(--c-sage);
+}
+.btn-light:hover {
+  background: var(--c-sand-soft);
+  border-color: var(--c-sand);
+}
+
+/* =========================================================
+   ESTILO CORPORATIVO EDITORIAL
+   - Pill Buttons con Círculo y Flecha
+   - Tarjetas Limpias con Bordes Finos y Sombra Suave
+   - Indicadores Numéricos y Tags Geométricos
+   ========================================================= */
+
+.btn-pill-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0.55rem 0.45rem 1.35rem;
+  border-radius: var(--radius-full);
+  background: var(--ink);
+  color: var(--c-white);
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-pill-action:hover {
+  transform: translateY(-2px);
+  background: #000000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btn-pill-action .action-arrow-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c-sand);
+  color: #1A2114;
+  transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
+  flex-shrink: 0;
+}
+
+.btn-pill-action:hover .action-arrow-circle {
+  transform: translate(2px, -2px);
+  background: var(--c-amber);
+  color: #FFFFFF;
+}
+
+.btn-pill-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.6rem 0.5rem 1.45rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--c-white);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.btn-pill-hero:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  border-color: rgba(240, 196, 140, 0.45);
+}
+
+.btn-pill-hero .action-arrow-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--c-sand);
+  color: #1A2114;
+  transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
+  flex-shrink: 0;
+}
+
+.btn-pill-hero:hover .action-arrow-circle {
+  transform: translate(2px, -2px);
+  background: var(--c-amber);
+  color: #FFFFFF;
+}
+
+.link-pill-lime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link-pill-lime:hover {
+  color: var(--c-amber);
+}
+
+.link-pill-lime .lime-dot-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-sand);
+  color: #1A2114;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.link-pill-lime:hover .lime-dot-arrow {
+  transform: translate(2px, -2px);
+  background: var(--c-amber);
+  color: #FFFFFF;
+}
+
+/* Badge pill editorial */
+.tag-pill-editorial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: rgba(14, 20, 13, 0.05);
+  border: 1px solid rgba(14, 20, 13, 0.1);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+}
+
+html[data-theme="dark"] .tag-pill-editorial {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--c-sage);
+}
+
+html[data-theme="dark"] .btn-pill-action {
+  background: #172015;
+  border-color: rgba(216, 224, 199, 0.22);
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .btn-pill-action:hover {
+  background: #202c1d;
+  border-color: var(--c-sand);
+}
+
+html[data-theme="dark"] .link-pill-lime {
+  color: #FFFFFF;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--c-sage);
+  background: var(--c-white);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Clases de Fondos */
+.bg-olive {
+  background-color: var(--c-olive);
+  color: var(--c-white);
+}
+.bg-sage {
+  background-color: var(--c-sage);
+  color: var(--ink);
+}
+.bg-amber {
+  background-color: var(--c-amber);
+  color: var(--c-white);
+}
+.bg-sand {
+  background-color: var(--c-sand);
+  color: var(--ink);
+}
+
+/* =========================================================
+   SEPARACIÓN ARQUITECTÓNICA DE SECCIONES Y FONDOS ANIMADOS CSS
+   (Bordes definidos entre secciones + animaciones CSS no intrusivas)
+   ========================================================= */
+.services-gallery,
+.method-section,
+.faq-section,
+.band-section,
+.pillars-section,
+.benchmark-section,
+.calc-section,
+.deliverables-section,
+.scope-section,
+.more-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 2px solid rgba(110, 125, 78, 0.34);
+  border-bottom: 1px solid rgba(27, 33, 20, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 -1px 0 rgba(27, 33, 20, 0.08);
+}
+
+/* Fondos base diferenciados por sección para evitar que todo se vea continuo */
+.services-gallery,
+.pillars-section,
+.deliverables-section,
+.calc-section {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.68) 0%, rgba(243, 246, 236, 0.78) 100%);
+}
+
+.faq-section,
+.benchmark-section,
+.more-section {
+  background: linear-gradient(180deg, rgba(250, 249, 245, 0.85) 0%, rgba(238, 243, 230, 0.72) 100%);
+  padding-top: clamp(3.5rem, 7vw, 5.5rem) !important;
+}
+
+.band-section {
+  background: linear-gradient(180deg, rgba(251, 242, 227, 0.55) 0%, rgba(216, 224, 199, 0.45) 100%);
+  padding-top: clamp(3.25rem, 6vw, 4.75rem) !important;
+}
+
+.scope-section {
+  padding-top: clamp(3.5rem, 7vw, 5.5rem) !important;
+}
+
+.services-gallery > *,
+.method-section > *,
+.faq-section > *,
+.band-section > *,
+.pillars-section > *,
+.benchmark-section > *,
+.calc-section > *,
+.deliverables-section > *,
+.scope-section > *,
+.more-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   SISTEMA DE FONDO AMBIENTAL MINIMALISTA & EDITORIAL (ZERO LAG)
+   - Lienzo sobrio, sofisticado y sin sobrecarga visual
+   - Iluminación difusa de acento de ultra-baja saturación
+   - Máxima legibilidad tipográfica y contraste en todas las secciones
+   - Cero filtros blur pesados: 60/120 FPS estables por hardware
+   ========================================================= */
+:root {
+  --sp-progress: 0;
+}
+
+.scroll-ambient-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--paper);
+  transition: background-color 0.4s ease;
+  contain: strict;
+}
+
+/* Lienzo interactivo de luciérnagas flotantes */
+.fireflies-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Orbes ambientales de acento sutil (Sin sobrecarga visual) */
+.sac-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.sac-orb-primary {
+  top: 15%;
+  right: 6%;
+  width: clamp(440px, 46vw, 720px);
+  height: clamp(440px, 46vw, 720px);
+  background: radial-gradient(circle, rgba(110, 125, 78, 0.08) 0%, rgba(216, 224, 199, 0.025) 45%, transparent 70%);
+  transform: translate3d(0, calc(var(--sp-progress, 0) * 80px), 0);
+  transition: background 0.4s ease;
+}
+
+.sac-orb-secondary {
+  bottom: 18%;
+  left: 5%;
+  width: clamp(380px, 40vw, 600px);
+  height: clamp(380px, 40vw, 600px);
+  background: radial-gradient(circle, rgba(170, 114, 41, 0.06) 0%, rgba(240, 196, 140, 0.02) 45%, transparent 70%);
+  transform: translate3d(0, calc(var(--sp-progress, 0) * -60px), 0);
+  transition: background 0.4s ease;
+}
+
+/* Sutil viñeta perimetral para profundidad editorial */
+.sac-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 62%, var(--paper) 100%);
+  opacity: 0.5;
+  transition: background 0.4s ease;
+}
+
+/* Adaptación a Modo Noche */
+html[data-theme="dark"] .scroll-ambient-canvas {
+  background-color: #080C07;
+}
+
+html[data-theme="dark"] .sac-orb-primary {
+  background: radial-gradient(circle, rgba(110, 125, 78, 0.09) 0%, rgba(216, 224, 199, 0.025) 45%, transparent 70%);
+}
+
+html[data-theme="dark"] .sac-orb-secondary {
+  background: radial-gradient(circle, rgba(170, 114, 41, 0.07) 0%, rgba(240, 196, 140, 0.02) 45%, transparent 70%);
+}
+
+html[data-theme="dark"] .sac-vignette {
+  background: radial-gradient(ellipse at 50% 50%, transparent 52%, #080C07 100%);
+  opacity: 0.7;
+}
+
+.site-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animaciones de aparición */
+.js .reveal {
+  opacity: 0;
+}
+.js .reveal.in {
+  opacity: 1;
+  animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--d, 0) * 90ms);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rise-t {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* =========================================================
+   MODO NOCHE OFICIAL (html[data-theme="dark"])
+   Estética Nocturna Obsidiana-Oliva & Bronce Ámbar
+   ========================================================= */
+html:not([data-theme="dark"]) {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #0B1008;
+  --paper-subtle: #12180F;
+  --paper-card: #151D12;
+  --ink: #F4F7EE;
+  --ink-soft: #B8C4AB;
+  --ink-muted: #828F75;
+
+  --c-sage-soft: #1C2417;
+  --c-sand-soft: #262015;
+
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(216, 224, 199, 0.22);
+
+  --shadow-sm: 0 4px 16px -3px rgba(0, 0, 0, 0.6);
+  --shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.75);
+}
+
+/* =========================================================
+   2. CINTA DE TECNOLOGÍAS (TechMarquee.astro) & FONDOS DE SECCIÓN
+   ========================================================= */
+html[data-theme="dark"] .tech-ribbon,
+html[data-theme="dark"] .ribbon-label {
+  background: #141910 !important;
+  color: #F2F5EC !important;
+}
+
+html[data-theme="dark"] .services-gallery,
+html[data-theme="dark"] .pillars-section,
+html[data-theme="dark"] .deliverables-section,
+html[data-theme="dark"] .calc-section {
+  background: linear-gradient(180deg, rgba(19, 24, 16, 0.88) 0%, rgba(16, 20, 13, 0.94) 100%) !important;
+  border-top-color: rgba(110, 125, 78, 0.38) !important;
+  border-bottom-color: rgba(110, 125, 78, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+html[data-theme="dark"] .method-section,
+html[data-theme="dark"] .scope-section {
+  background: linear-gradient(180deg, rgba(22, 28, 18, 0.92) 0%, rgba(18, 22, 15, 0.94) 100%) !important;
+  border-top-color: var(--c-olive) !important;
+  border-bottom-color: rgba(170, 114, 41, 0.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+html[data-theme="dark"] .faq-section,
+html[data-theme="dark"] .benchmark-section,
+html[data-theme="dark"] .more-section,
+html[data-theme="dark"] .band-section {
+  background: linear-gradient(180deg, rgba(17, 21, 14, 0.92) 0%, rgba(21, 26, 17, 0.95) 100%) !important;
+  border-top-color: rgba(110, 125, 78, 0.35) !important;
+  border-bottom-color: rgba(110, 125, 78, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+html[data-theme="dark"] .services-gallery::after,
+html[data-theme="dark"] .pillars-section::after,
+html[data-theme="dark"] .deliverables-section::after,
+html[data-theme="dark"] .calc-section::after,
+html[data-theme="dark"] .faq-section::after,
+html[data-theme="dark"] .band-section::after,
+html[data-theme="dark"] .benchmark-section::after,
+html[data-theme="dark"] .more-section::after {
+  background:
+    radial-gradient(circle 380px at 14% 25%, rgba(110, 125, 78, 0.14) 0%, transparent 70%),
+    radial-gradient(circle 420px at 86% 75%, rgba(170, 114, 41, 0.12) 0%, transparent 70%) !important;
+}
+
+/* =========================================================
+   5. PREGUNTAS FRECUENTES (Faq.astro) EN MODO NOCHE
+   ========================================================= */
+html[data-theme="dark"] .faq-direct-card {
+  background: #161C12 !important;
+  border-color: rgba(216, 224, 199, 0.24) !important;
+  color: #F2F5EC !important;
+  box-shadow: 6px 6px 0 var(--c-olive) !important;
+}
+
+html[data-theme="dark"] .direct-top {
+  color: var(--c-sand) !important;
+}
+
+html[data-theme="dark"] .faq-item {
+  background: #161C12 !important;
+  border-color: rgba(216, 224, 199, 0.2) !important;
+  color: #F2F5EC !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-theme="dark"] .faq-item:hover {
+  border-color: var(--c-olive) !important;
+  box-shadow: 6px 6px 0 var(--c-olive) !important;
+}
+
+html[data-theme="dark"] .faq-item.is-open {
+  background: linear-gradient(165deg, #1A2115 0%, #1F281A 100%) !important;
+  border-color: var(--c-olive) !important;
+  box-shadow: 7px 7px 0 var(--c-olive) !important;
+}
+
+html[data-theme="dark"] .faq-num {
+  background: #232B1D !important;
+  color: #D8E0C7 !important;
+  border-color: rgba(110, 125, 78, 0.4) !important;
+}
+
+html[data-theme="dark"] .faq-item.is-open .faq-num {
+  background: var(--c-olive) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .faq-icon {
+  background: #232B1D !important;
+  border-color: rgba(216, 224, 199, 0.26) !important;
+}
+
+html[data-theme="dark"] .faq-icon::before,
+html[data-theme="dark"] .faq-icon::after {
+  background: #F2F5EC !important;
+}
+
+/* =========================================================
+   6. BANDA DE CONTACTO (ContactBand.astro) & FOOTER EN MODO NOCHE
+   ========================================================= */
+html[data-theme="dark"] .pavilion {
+  background: linear-gradient(140deg, #141812 0%, #181D15 55%, #231C14 100%) !important;
+  border-color: rgba(216, 224, 199, 0.22) !important;
+  box-shadow:
+    0 24px 52px -24px rgba(0, 0, 0, 0.78),
+    8px 8px 0 var(--c-olive) !important;
+}
+
+html[data-theme="dark"] .pavilion-glow {
+  background: radial-gradient(circle, rgba(170, 114, 41, 0.34) 0%, transparent 70%) !important;
+}
+
+html[data-theme="dark"] .status-pill {
+  background: #1B2117 !important;
+  border-color: rgba(110, 125, 78, 0.45) !important;
+  color: #D8E0C7 !important;
+}
+
+html[data-theme="dark"] .pavilion-title {
+  color: #F2F5EC !important;
+}
+
+html[data-theme="dark"] .pavilion-title em {
+  color: #C88B3A !important;
+}
+
+html[data-theme="dark"] .pavilion-sub {
+  color: #B5C0A7 !important;
+}
+
+html[data-theme="dark"] .pavilion-meta {
+  color: #C8D3B8 !important;
+}
+
+html[data-theme="dark"] .wa-card {
+  background: #1A2016 !important;
+  border-color: rgba(216, 224, 199, 0.22) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 18px 36px -14px rgba(0, 0, 0, 0.72) !important;
+}
+
+html[data-theme="dark"] .wa-card:hover .wc-arrow {
+  background: var(--c-sand) !important;
+  color: #1B2114 !important;
+}
+
+html[data-theme="dark"] .sub-link {
+  color: #B5C0A7 !important;
+}
+
+html[data-theme="dark"] .sub-link:hover {
+  color: var(--c-sand) !important;
+}
+
+/* Footer en Modo Noche */
+html[data-theme="dark"] .footer {
+  background: #1B2317 !important;
+  color: #E8EDE1 !important;
+  border-top-color: rgba(110, 125, 78, 0.45) !important;
+}
+
+html[data-theme="dark"] .essential-pill {
+  background: rgba(18, 23, 15, 0.65) !important;
+  border-color: rgba(216, 224, 199, 0.16) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .essential-pill.pill-wa {
+  background: rgba(31, 168, 85, 0.14) !important;
+  border-color: rgba(31, 168, 85, 0.42) !important;
+}

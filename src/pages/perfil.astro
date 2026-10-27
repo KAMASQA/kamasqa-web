@@ -1,0 +1,215 @@
+---
+import "../styles/perfil.css";
+import Base from "../layouts/Base.astro";
+import TechMarquee from "../components/sections/TechMarquee.astro";
+import { profileData, wa, site } from "../data/site";
+---
+
+<Base
+  title="Perfil de Agencia | KAMASQA — Arquitectura y Diseño Web Editorial"
+  description="Conoce la filosofía, arquitectura técnica y estándares de calidad de KAMASQA. Desarrollamos activos digitales rápidos y a medida en Lima, Perú."
+>
+  <!-- Hero Editorial de Perfil -->
+  <section class="perfil-editorial-hero">
+    <!-- Fondo Multimedia Idéntico al Hero -->
+    <div class="perfil-hero-media" aria-hidden="true">
+      <video
+        class="perfil-hero-video"
+        src="/background.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+      <div class="perfil-hero-gradient-overlay"></div>
+      <div class="perfil-hero-grain-mesh"></div>
+    </div>
+
+    <div class="container-wide perfil-hero-content-wrap">
+      <div class="peh-top-nav">
+        <a href="/" class="peh-back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 19"></polyline>
+          </svg>
+          <span>Volver al inicio</span>
+        </a>
+      </div>
+
+      <header class="peh-header">
+        <h1 class="peh-title">
+          Damos vida y arquitectura digital a negocios con visión.
+        </h1>
+
+        <p class="peh-lead">
+          {profileData.etymology}
+        </p>
+
+        <div class="peh-actions">
+          <a
+            href={wa(
+              "Hola equipo de Kamasqa Agencia Digital 👋\n\n" +
+                "Acabo de revisar su Perfil de Agencia y me encantaría agendar una reunión de 15 minutos con su equipo para conversar sobre el sitio web de mi empresa."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Agendar reunión con el equipo</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+
+          <a href="/#servicios" class="btn-editorial-ghost">
+            <span>Explorar Servicios</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Panel de Métricas y Estándares de Agencia -->
+      <div class="peh-stats-wrapper">
+        <div class="peh-stats-grid" id="peh-stats-track">
+          {profileData.stats.map((st, i) => (
+            <div class={`peh-stat-card ${i === 0 ? "is-top" : ""}`} data-stat-idx={i} data-layer={i}>
+              <span class="peh-stat-val">{st.value}</span>
+              <strong class="peh-stat-label">{st.label}</strong>
+              <p class="peh-stat-detail">{st.detail}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Indicadores & Controles para el carrusel de cartas apiladas en móvil -->
+        <div class="peh-stack-controls" id="peh-stack-controls" aria-label="Controles de métricas de perfil">
+          <button type="button" class="peh-ctrl-btn prev" id="peh-prev" aria-label="Métrica anterior">‹</button>
+          <div class="peh-stack-dots" id="peh-stack-dots">
+            {profileData.stats.map((_, i) => (
+              <span class={`peh-dot ${i === 0 ? "active" : ""}`} data-sdot={i}></span>
+            ))}
+          </div>
+          <button type="button" class="peh-ctrl-btn next" id="peh-next" aria-label="Métrica siguiente">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cinta Dinámica Editorial de Herramientas -->
+  <TechMarquee />
+
+  <!-- Sección: Los 4 Pilares de Trabajo -->
+  <section class="section perfil-pillars-section">
+    <div class="container-wide">
+      <header class="section-head-editorial">
+        <h2 class="she-title">Cuatro pilares que separan una web común de un activo comercial</h2>
+        <p class="she-lead">
+          Combinamos rigor técnico de programación moderna con dirección de arte enfocada en el mercado peruano.
+        </p>
+      </header>
+
+      <div class="pillars-carousel-wrapper" id="pillars-carousel-wrap">
+        <div class="pillars-editorial-grid" id="pillars-track">
+          {profileData.pillars.map((p, idx) => (
+            <article class="pillar-editorial-card" data-pillar-card={idx}>
+              <div class="pec-top">
+                <span class="pec-num">0{idx + 1}</span>
+                <span class="pec-tag">{p.tag}</span>
+              </div>
+
+              <h3 class="pec-title">{p.title}</h3>
+              <p class="pec-desc">{p.desc}</p>
+            </article>
+          ))}
+        </div>
+
+        <!-- Controles Móviles para Carrusel de Pilares -->
+        <div class="pillars-mobile-controls" id="pillars-controls">
+          <button type="button" class="pm-arrow-btn" id="pm-prev" aria-label="Pilar anterior">‹</button>
+          <div class="pm-dots" id="pm-dots">
+            {profileData.pillars.map((_, i) => (
+              <button
+                type="button"
+                class={`pm-dot ${i === 0 ? "active" : ""}`}
+                data-pdot={i}
+                aria-label={`Ir al pilar ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button type="button" class="pm-arrow-btn" id="pm-next" aria-label="Siguiente pilar">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Comparativa de Estándar de Calidad -->
+  <section class="section perfil-compare-section">
+    <div class="container-wide">
+      <header class="section-head-editorial text-center">
+        <h2 class="she-title">Ingeniería Kamasqa frente a webs genéricas tradicionales</h2>
+      </header>
+
+      <div class="compare-editorial-table">
+        <div class="cet-header-row">
+          <span class="cet-col-topic">Factor evaluado</span>
+          <span class="cet-col-kamasqa">✓ Estándar Kamasqa</span>
+          <span class="cet-col-other">✕ Mercado Tradicional</span>
+        </div>
+
+        {profileData.compare.map((c) => (
+          <div class="cet-row">
+            <div class="cet-topic">
+              <strong>{c.topic}</strong>
+            </div>
+            <div class="cet-kamasqa">
+              <span class="cet-badge-k">✓ Superior</span>
+              <p>{c.kamasqa}</p>
+            </div>
+            <div class="cet-other">
+              <span class="cet-badge-o">✕ Común</span>
+              <p>{c.other}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Banner de Conversión Directo de Perfil -->
+      <div class="perfil-cta-banner">
+        <div class="pcb-content">
+          <h3 class="pcb-title">Agenda tu sesión inicial de 15 minutos sin compromiso</h3>
+          <p class="pcb-desc">
+            Evaluamos tu proyecto, revisamos tu modelo de negocio y te entregamos una propuesta clara con presupuesto cerrado.
+          </p>
+        </div>
+        <div class="pcb-action">
+          <a
+            href={wa(
+              "Hola equipo de Kamasqa 👋\n\n" +
+                "Estuve revisando su Perfil de Agencia y me gustaría agendar la reunión gratuita de 15 minutos para cotizar mi proyecto web."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pill-action"
+          >
+            <span>Iniciar chat de asesoría</span>
+            <span class="action-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+
+
+<script>
+  import { initPerfil } from "../scripts/perfil";
+  initPerfil();
+</script>

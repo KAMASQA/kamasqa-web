@@ -1,0 +1,368 @@
+---
+import "../../styles/servicesGrid.css";
+import { services, wa } from "../../data/site";
+
+// Configuraciones visuales y de fondo para cada servicio principal
+const serviceThemes = [
+  {
+    slug: "landing-page",
+    category: "Conversión & Campañas",
+    time: "4 a 7 días hábiles",
+    imgSrc: "/images/services/landing-page.jpg",
+    accentTone: "var(--c-amber)",
+    leadShort: "Páginas de alta conversión diseñadas para transformar clics de campañas en clientes reales.",
+  },
+  {
+    slug: "web-informativa",
+    category: "Autoridad Corporativa",
+    time: "7 a 14 días hábiles",
+    imgSrc: "/images/services/web-informativa.jpg",
+    accentTone: "var(--c-olive)",
+    leadShort: "Tu sede digital multipágina para presentar tus servicios, generar respaldo y posicionar en Google.",
+  },
+  {
+    slug: "tienda-online",
+    category: "E-Commerce 24/7",
+    time: "14 a 21 días hábiles",
+    imgSrc: "/images/services/tienda-online.jpg",
+    accentTone: "var(--c-sand)",
+    leadShort: "Catálogo completo con carrito de compras y pagos integrados con Yape, Plin y tarjetas.",
+  },
+  {
+    slug: "sistema-medida",
+    category: "Bespoke & Plataformas",
+    time: "3 a 5 semanas",
+    imgSrc: "/images/services/sistema-medida.jpg",
+    accentTone: "var(--c-sage)",
+    leadShort: "Plataformas web avanzadas, paneles administrativos y flujos de negocio a medida.",
+  },
+];
+
+// Configuraciones visuales idénticas para los 3 subservicios
+const subserviceThemes = [
+  {
+    id: "hosting-vps",
+    name: "Alojamiento Web VPS",
+    category: "Infraestructura & Servidores",
+    time: "Activación en 24h",
+    imgSrc: "/images/services/hosting-vps.jpg",
+    accentTone: "var(--c-amber)",
+    short: "Hosting en servidor VPS optimizado con recursos aislados, IP fija independiente, SSL vitalicio y backups automáticos diarios.",
+    leadShort: "Servidor cloud VPS con IP fija dedicada, SSL vitalicio y copias de seguridad automáticas diarias.",
+    pills: ["IP Dedicada", "SSL Vitalicio", "Backups Diarios", "Caché HTTP/3"],
+    pricing: "Tarifa mensual o anual",
+    ctaText: "Cotizar Alojamiento VPS",
+    msg: "Hola equipo de Kamasqa 👋 Quisiera consultar y cotizar el servicio de *Alojamiento Web VPS Dedicado* (con IP independiente, SSL y backups).",
+  },
+  {
+    id: "correos-corporativos",
+    name: "Correos Corporativos",
+    category: "Identidad & Marca",
+    time: "24 a 48 horas",
+    imgSrc: "/images/services/correos-corporativos.jpg",
+    accentTone: "var(--c-olive)",
+    short: "Cuentas oficiales con tu propio dominio (@tuempresa.pe) para proyectar máxima solvencia comercial y evitar filtros de spam.",
+    leadShort: "Cuentas oficiales con tu dominio @tuempresa.pe en 1 cuenta, pack de 3 o pack de 5.",
+    pills: ["Opción Individual (1 cuenta)", "Paquete de 3 Correos", "Paquete de 5 Correos"],
+    pricing: "Bajo dominio propio",
+    ctaText: "Cotizar Correos Pro",
+    msg: "Hola equipo de Kamasqa 👋 Me gustaría cotizar el servicio de *Correos Corporativos* (@tuempresa.pe) para mi negocio.",
+  },
+  {
+    id: "mantenimiento-soporte",
+    name: "Mantenimiento & Soporte TI",
+    category: "Bolsa de Horas & Soporte",
+    time: "Atención prioritaria",
+    imgSrc: "/images/services/mantenimiento-soporte.jpg",
+    accentTone: "var(--c-sand)",
+    short: "Ajustes de código, resolución de bugs, desinfección de malware o soporte de servidor a pedido sin mensualidades forzosas.",
+    leadShort: "Soporte bajo demanda para corregir bugs, desinfectar malware o actualizar tu web sin planes fijos.",
+    pills: ["Landing / Informativa", "Tienda E-commerce", "Bugs & Malware"],
+    pricing: "Puntual o bolsa de horas",
+    ctaText: "Consultar Soporte Técnico",
+    msg: "Hola equipo de Kamasqa 👋 Necesito cotizar una intervención de *Mantenimiento Web Puntual / Soporte Técnico* para mi sitio web.",
+  },
+];
+---
+
+<section id="servicios" class="section services-editorial">
+  <div class="container-wide">
+    <!-- Encabezado de Sección: Dinámico con conmutador -->
+    <header class="sec-head-editorial">
+      <div class="she-left">
+        <div class="she-badge-wrap">
+          <span class="she-badge" id="services-view-badge">Soluciones Web Principales</span>
+        </div>
+        <h2 class="she-title" id="services-sec-title">Nuestras Soluciones Web</h2>
+        <p class="she-desc" id="services-sec-desc">
+          Desde una primera cotización transparente hasta la entrega final, tendrás un proceso claro, atención personalizada y soporte continuo.
+        </p>
+      </div>
+
+      <div class="she-right">
+        <button
+          type="button"
+          id="btn-toggle-services"
+          class="btn-pill-action btn-toggle-services"
+          aria-expanded="false"
+          aria-controls="services-view-stage"
+          title="Alternar entre servicios principales y subservicios especializados"
+        >
+          <span class="btn-toggle-text" id="toggle-btn-label">Ver subservicios y soporte</span>
+          <span class="action-arrow-circle toggle-arrow-wrap" aria-hidden="true">
+            <svg class="toggle-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Escenario de Vistas con animación cruzada -->
+    <div id="services-view-stage" class="services-view-stage" data-current-view="main">
+      
+      <!-- ========================================================
+           VISTA 1: SERVICIOS PRINCIPALES (GRID 4 COLS + POPULAR NOW)
+           ======================================================== -->
+      <div id="services-main-panel" class="services-panel panel-main is-active">
+        <!-- Grid de Tarjetas Verticales (Desktop: 4 cols | Mobile: Carrusel táctil snap) -->
+        <div class="cards-carousel-container">
+          <div class="cards-vertical-grid" id="services-grid-track">
+            {services.map((s, i) => {
+              const theme = serviceThemes[i] || serviceThemes[0];
+              return (
+                <article class="vertical-card" style={`--accent-card:${theme.accentTone}`} data-srv-card={i}>
+                  <!-- Fondo Visual del Servicio -->
+                  <div class="vc-bg-wrap" aria-hidden="true">
+                    <img
+                      src={theme.imgSrc}
+                      alt={`Render 3D conceptual para ${s.name}`}
+                      class="vc-bg-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="vc-gradient"></div>
+                  </div>
+
+                  <!-- Botón de Flecha Circular Superior Derecha (↗) -->
+                  <a
+                    href={`/servicios/${s.slug}`}
+                    class="vc-arrow-btn"
+                    aria-label={`Ver detalles completos de ${s.name}`}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+
+                  <!-- Contenido Anclado al Fondo -->
+                  <div class="vc-content">
+                    <div class="vc-meta">
+                      <span class="vc-num-tag">0{i + 1}</span>
+                      <span class="vc-badge">{theme.category}</span>
+                      <span class="vc-time">⏱ {theme.time}</span>
+                    </div>
+
+                    <h3 class="vc-title">
+                      <a href={`/servicios/${s.slug}`} class="vc-title-link">{s.name}</a>
+                    </h3>
+
+                    <p class="vc-desc">{s.short}</p>
+
+                    <div class="vc-footer">
+                      <span class="vc-pricing">A cotización formal</span>
+                      <a href={`/servicios/${s.slug}`} class="vc-cta-text">
+                        <span>Ver proyecto</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <!-- Indicadores de Carrusel en Móvil -->
+          <div class="srv-carousel-dots" id="srv-dots" aria-hidden="true">
+            {services.map((_, idx) => (
+              <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-idx={idx} aria-label={`Ver tarjeta ${idx + 1}`}></button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Ticker 'Popular now': En Desktop: Fila horizontal. En Mobile: Stack superpuesto -->
+        <div class="popular-ticker-wrap">
+          <div class="pt-label-col">
+            <span class="pt-tag">Popular now</span>
+          </div>
+
+          <div class="pt-items-stage" id="popular-stage">
+            {services.map((s, i) => {
+              const theme = serviceThemes[i];
+              return (
+                <a
+                  href={`/servicios/${s.slug}`}
+                  class={`pt-item ${i === 0 ? "is-top" : ""}`}
+                  data-pop-idx={i}
+                  data-layer={i}
+                  aria-label={`Ver servicio ${s.name}`}
+                >
+                  <div class="pt-item-inner">
+                    <div class="pt-item-head">
+                      <span class="pt-item-meta">{s.name} · {theme.time}</span>
+                      <span class="pt-item-badge">Destacado</span>
+                    </div>
+                    <p class="pt-item-title">{theme.leadShort}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+
+          <!-- Controles móviles para el stack superpuesto de Popular Now -->
+          <div class="pop-stack-controls" id="pop-controls" aria-label="Controles de tarjetas destacadas">
+            <button type="button" class="pop-ctrl-btn prev" id="pop-prev" aria-label="Anterior destacada">‹</button>
+            <div class="pop-mini-dots" id="pop-mini-dots">
+              {services.map((_, i) => (
+                <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-pdot={i}></span>
+              ))}
+            </div>
+            <button type="button" class="pop-ctrl-btn next" id="pop-next" aria-label="Siguiente destacada">›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           VISTA 2: SUBSERVICIOS (TARJETAS IDÉNTICAS + CARRUSEL MÓVIL + POPULAR NOW)
+           ======================================================== -->
+      <div id="services-sub-panel" class="services-panel panel-sub" aria-hidden="true">
+        <div class="cards-carousel-container">
+          <div class="subservices-vertical-grid" id="subservices-grid-track">
+            {subserviceThemes.map((sub, i) => (
+              <article class="vertical-card" style={`--accent-card:${sub.accentTone}`} data-sub-card={i}>
+                <!-- Fondo Visual 3D del Subservicio -->
+                <div class="vc-bg-wrap" aria-hidden="true">
+                  <img
+                    src={sub.imgSrc}
+                    alt={`Render 3D conceptual para ${sub.name}`}
+                    class="vc-bg-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="vc-gradient"></div>
+                </div>
+
+                <!-- Botón de Flecha Circular Superior Derecha (↗) -->
+                <a
+                  href={wa(sub.msg)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="vc-arrow-btn"
+                  aria-label={`Cotizar subservicio ${sub.name}`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+
+                <!-- Contenido Anclado al Fondo -->
+                <div class="vc-content">
+                  <div class="vc-meta">
+                    <span class="vc-num-tag">0{i + 1}</span>
+                    <span class="vc-badge">{sub.category}</span>
+                    <span class="vc-time">⏱ {sub.time}</span>
+                  </div>
+
+                  <h3 class="vc-title">
+                    <a href={wa(sub.msg)} target="_blank" rel="noopener noreferrer" class="vc-title-link">{sub.name}</a>
+                  </h3>
+
+                  <p class="vc-desc">{sub.short}</p>
+
+                  <!-- Píldoras mínimas y elegantes de opciones / características -->
+                  <div class="vc-pills-wrap">
+                    {sub.pills.map((pill) => (
+                      <span class="vc-pill-chip">{pill}</span>
+                    ))}
+                  </div>
+
+                  <div class="vc-footer">
+                    <span class="vc-pricing">{sub.pricing}</span>
+                    <a href={wa(sub.msg)} target="_blank" rel="noopener noreferrer" class="vc-cta-text">
+                      <span>{sub.ctaText}</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- Indicadores de Carrusel en Móvil para Subservicios -->
+          <div class="sub-carousel-dots" id="sub-dots" aria-hidden="true">
+            {subserviceThemes.map((_, idx) => (
+              <button type="button" class={`s-dot ${idx === 0 ? "active" : ""}`} data-sub-idx={idx} aria-label={`Ver subservicio ${idx + 1}`}></button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Ticker 'Popular now' para Subservicios -->
+        <div class="popular-ticker-wrap">
+          <div class="pt-label-col">
+            <span class="pt-tag">Popular now</span>
+          </div>
+
+          <div class="pt-items-stage sub-popular-stage" id="sub-popular-stage">
+            {subserviceThemes.map((sub, i) => (
+              <a
+                href={wa(sub.msg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`pt-item ${i === 0 ? "is-top" : ""}`}
+                data-sub-pop-idx={i}
+                data-sub-layer={i}
+                aria-label={`Cotizar subservicio ${sub.name}`}
+              >
+                <div class="pt-item-inner">
+                  <div class="pt-item-head">
+                    <span class="pt-item-meta">{sub.name} · {sub.time}</span>
+                    <span class="pt-item-badge">Especializado</span>
+                  </div>
+                  <p class="pt-item-title">{sub.leadShort}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- Controles móviles para el stack superpuesto de Popular Now en subservicios -->
+          <div class="pop-stack-controls" id="sub-pop-controls" aria-label="Controles de subservicios destacados">
+            <button type="button" class="pop-ctrl-btn prev" id="sub-pop-prev" aria-label="Anterior subservicio destacado">‹</button>
+            <div class="pop-mini-dots" id="sub-pop-mini-dots">
+              {subserviceThemes.map((_, i) => (
+                <span class={`pm-dot ${i === 0 ? "active" : ""}`} data-sub-pdot={i}></span>
+              ))}
+            </div>
+            <button type="button" class="pop-ctrl-btn next" id="sub-pop-next" aria-label="Siguiente subservicio destacado">›</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initServicesGrid } from "../../scripts/servicesGrid";
+  initServicesGrid();
+</script>
+
+

@@ -1,0 +1,620 @@
+---
+import "../styles/portfolio.css";
+import Base from "../layouts/Base.astro";
+import { portfolioProjects } from "../data/portfolio";
+import { wa, site } from "../data/site";
+
+const categories = ["Todos", "B2B Industrial", "E-commerce", "Turismo & Bienestar", "Logística & Energía"];
+---
+
+<Base
+  title="Portafolio de Casos de Éxito | KAMASQA — Soluciones Web de Alto Rendimiento"
+  description="Explora nuestros desarrollos web a medida: plataformas concebidas para posicionar marcas, acelerar ventas y automatizar la captación de clientes. Tarjetas interactivas con giro 3D."
+>
+  <!-- Hero Section -->
+  <section class="bento-hero">
+    <div class="container-wide hero-content">
+      <div class="hero-top-row">
+        <a href="/" class="bento-back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 19"></polyline>
+          </svg>
+          <span>Volver al inicio</span>
+        </a>
+        <div class="live-status-pill">
+          <span class="live-dot"></span>
+          <span class="live-text" id="active-count-label">6 Casos Activos</span>
+        </div>
+      </div>
+
+      <div class="hero-titles">
+        <span class="hero-kicker">CASOS DE ÉXITO · INGENIERÍA DIGITAL A MEDIDA</span>
+        <h1 class="hero-heading">
+          Proyectos que impulsan <span class="text-gradient">negocios reales</span>
+        </h1>
+        <p class="hero-subheading">
+          Desarrollamos plataformas web de alto rendimiento diseñadas para posicionar marcas, acelerar ventas y automatizar la captación de clientes. Cada caso representa un reto de negocio resuelto con arquitectura técnica y diseño UI/UX exclusivo. Presiona <strong>«Ver análisis técnico»</strong> en cualquier tarjeta para explorar la solución a fondo.
+        </p>
+      </div>
+
+      <!-- Rediseño Profesional de Filter Bar -->
+      <div class="portfolio-filter-wrapper" id="portfolio-filters">
+        <div class="filter-header-row">
+          <div class="filter-label-group">
+            <svg class="filter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+            </svg>
+            <span class="filter-caption">Explorar por sector</span>
+          </div>
+          <span class="filter-indicator-text" id="filter-status-text">Mostrando todos los proyectos seleccionados</span>
+        </div>
+
+        <div class="filter-pills-track" role="tablist" aria-label="Filtro de proyectos por industria">
+          {categories.map((cat, i) => {
+            const count = cat === "Todos" 
+              ? portfolioProjects.length 
+              : portfolioProjects.filter((p) => p.category === cat).length;
+            return (
+              <button
+                type="button"
+                class={`filter-btn ${i === 0 ? 'active' : ''}`}
+                data-category={cat}
+                role="tab"
+                aria-selected={i === 0 ? "true" : "false"}
+              >
+                <span class="filter-btn-text">{cat}</span>
+                <span class="filter-btn-badge">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section (Uniform Grid on PC / Carousel on Mobile) -->
+  <section class="bento-section">
+    <div class="container-wide">
+      
+      <!-- Bento Cards Container (3D Flip Scene Containers) -->
+      <div class="bento-grid" id="bento-cards-container">
+        {portfolioProjects.map((project, idx) => (
+          <div
+            class="bento-card-scene"
+            data-card-category={project.category}
+            data-project-id={project.id}
+            data-card-index={idx}
+          >
+            <!-- 3D Flip Inner Wrapper -->
+            <div class="card-flip-inner">
+              
+              <!-- ============================================
+                   CARA FRONTAL (PORTADA DE LA TARJETA)
+                   ============================================ -->
+              <article class="card-face card-front">
+                <!-- Top Header: Badges & Sector -->
+                <div class="card-header">
+                  <div class="card-badges">
+                    <span class="badge-num">{project.number}</span>
+                    <span class="badge-cat">{project.category}</span>
+                  </div>
+                  <span class="badge-sector">{project.sector}</span>
+                </div>
+
+                <!-- Media Preview (Misma proporción 16:10) -->
+                <div class="card-media">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="card-img"
+                  />
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="media-external-link"
+                    aria-label={`Abrir sitio web de ${project.client}`}
+                    title="Visitar web en nueva pestaña"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="card-title-group">
+                    <h2 class="card-title">{project.title}</h2>
+                    <p class="card-subtitle">{project.subtitle}</p>
+                  </div>
+
+                  <!-- Desafío / Reto (TEXTO COMPLETO SIN RECORTES NI PUNTOS SUSPENSIVOS) -->
+                  <div class="card-highlight-box">
+                    <span class="hl-label">Desafío:</span>
+                    <p class="hl-text-full">{project.challenge}</p>
+                  </div>
+
+                  <!-- Tecnologías integradas -->
+                  <div class="card-tech-group">
+                    <span class="tech-group-title">Tecnologías integradas:</span>
+                    <div class="tech-tags-list">
+                      {project.technologies.map((t) => (
+                        <span class="tech-tag">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- Botón Trigger de Giro 3D para Ver Análisis Técnico -->
+                  <div class="flip-trigger-wrap">
+                    <button
+                      type="button"
+                      class="btn-flip-trigger flip-to-back-btn"
+                      aria-label={`Girar tarjeta para ver análisis técnico de ${project.client}`}
+                    >
+                      <span>Ver análisis técnico</span>
+                      <span class="flip-icon" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <polyline points="23 4 23 10 17 10"></polyline>
+                          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+
+                  <!-- Footer Actions de la Cara Frontal -->
+                  <div class="card-footer-actions">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-visit"
+                    >
+                      <span>Visitar Web</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </a>
+
+                    <a
+                      href={wa(`Hola Kamasqa 👋\n\nMe llamó la atención el desarrollo de *${project.client}* en su Portafolio. ¿Podríamos cotizar un proyecto similar?`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-wa-direct"
+                      aria-label={`Cotizar proyecto similar a ${project.client}`}
+                    >
+                      <span>Cotizar</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- ============================================
+                   CARA POSTERIOR (ANÁLISIS TÉCNICO COMPLETO)
+                   ============================================ -->
+              <article class="card-face card-back">
+                <!-- Back Header -->
+                <div class="back-header">
+                  <div class="back-header-left">
+                    <span class="badge-num">{project.number}</span>
+                    <div class="back-client-info">
+                      <strong class="back-client-name">{project.client}</strong>
+                      <span class="back-tagline">Análisis Técnico Detallado</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn-flip-back flip-to-front-btn"
+                    aria-label="Volver a la portada de la tarjeta"
+                  >
+                    <span>Volver</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="1 4 1 10 7 10"></polyline>
+                      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Back Structured Body -->
+                <div class="back-scroll-content">
+                  <!-- Cómo ayudamos -->
+                  <div class="back-section">
+                    <strong class="back-sub">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Cómo podemos ayudarte:</span>
+                    </strong>
+                    <p class="back-p">{project.howWeHelp}</p>
+                  </div>
+
+                  <!-- Capacidades clave -->
+                  <div class="back-section">
+                    <strong class="back-sub">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 14 14"></polyline>
+                      </svg>
+                      <span>Capacidades que ponemos en juego:</span>
+                    </strong>
+                    <ul class="back-caps-list">
+                      {project.capabilities.map((cap) => (
+                        <li>
+                          <span class="cap-check" aria-hidden="true">✓</span>
+                          <span>{cap}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Criterio Tecnológico -->
+                  <div class="back-section">
+                    <strong class="back-sub">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                      </svg>
+                      <span>Tecnología y Criterio:</span>
+                    </strong>
+                    <p class="back-p">{project.techAndCriteria}</p>
+                  </div>
+
+                  <!-- Lo que puedes esperar -->
+                  <div class="back-results-box">
+                    <strong class="results-kicker">Lo que puedes esperar:</strong>
+                    <p class="results-p">{project.expectedResults}</p>
+                  </div>
+                </div>
+
+                <!-- Back Actions Bar -->
+                <div class="back-footer-actions">
+                  <button
+                    type="button"
+                    class="btn-back-return flip-to-front-btn"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="19" y1="12" x2="5" y2="12"></line>
+                      <polyline points="12 19 5 12 12 19"></polyline>
+                    </svg>
+                    <span>Portada</span>
+                  </button>
+
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-back-visit"
+                  >
+                    <span>Web en vivo</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+
+                  <a
+                    href={wa(`Hola Kamasqa 👋\n\nRevisé la ficha técnica completa de *${project.client}* en su Portafolio y deseo cotizar una solución similar.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-back-quote"
+                    aria-label={`Cotizar solución similar a ${project.client}`}
+                  >
+                    <span>Cotizar</span>
+                  </a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        ))}
+
+        <!-- ============================================
+             TARJETA 7: INVITACIÓN "AQUÍ PODRÍA ESTAR TU PROYECTO"
+             ============================================ -->
+        <div
+          class="bento-card-scene bento-card-cta-scene"
+          data-card-category="Todos"
+          data-project-id="tu-proyecto"
+          data-card-index={portfolioProjects.length}
+        >
+          <div class="card-flip-inner">
+            
+            <!-- CARA FRONTAL -->
+            <article class="card-face card-front cta-front-face">
+              <div class="card-header">
+                <div class="card-badges">
+                  <span class="badge-num badge-cta-num">★ TU WEB</span>
+                  <span class="badge-cat badge-cta-cat">ESPACIO RESERVADO</span>
+                </div>
+                <span class="badge-sector badge-cta-status">DISPONIBILIDAD INMEDIATA</span>
+              </div>
+
+              <!-- Media Preview: Próximamente -->
+              <div class="card-media cta-media-placeholder">
+                <div class="cta-soon-box">
+                  <span class="cta-soon-badge">
+                    <span class="cta-soon-dot" aria-hidden="true"></span>
+                    <span class="cta-soon-label">Próximamente...</span>
+                  </span>
+                  <span class="cta-soon-hint">Tu proyecto aquí</span>
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="card-title-group">
+                  <h2 class="card-title">Aquí podría estar tu proyecto</h2>
+                  <p class="card-subtitle">Construyamos la plataforma web que tu empresa necesita para liderar</p>
+                </div>
+
+                <!-- Desafío / Oportunidad -->
+                <div class="card-highlight-box cta-hl-box">
+                  <span class="hl-label cta-hl-label">Tu Oportunidad Comercial:</span>
+                  <p class="hl-text-full">
+                    Supera a tu competencia con una web rápida, profesional y persuasiva, diseñada para posicionar tu marca en Google y captar prospectos calificados en automático directo a WhatsApp.
+                  </p>
+                </div>
+
+                <!-- Tecnologías & Garantías -->
+                <div class="card-tech-group">
+                  <span class="tech-group-title">Garantías de tu desarrollo:</span>
+                  <div class="tech-tags-list">
+                    <span class="tech-tag tech-tag-cta">Puntaje 95+ PageSpeed</span>
+                    <span class="tech-tag tech-tag-cta">UI/UX Exclusivo</span>
+                    <span class="tech-tag tech-tag-cta">Captación WhatsApp</span>
+                    <span class="tech-tag tech-tag-cta">SEO en Google</span>
+                    <span class="tech-tag tech-tag-cta">SSL & Cloud</span>
+                  </div>
+                </div>
+
+                <!-- Botón Trigger de Giro 3D para Ver Beneficios y Proceso -->
+                <div class="flip-trigger-wrap">
+                  <button
+                    type="button"
+                    class="btn-flip-trigger flip-to-back-btn cta-flip-trigger"
+                    aria-label="Girar tarjeta para conocer el proceso y beneficios de trabajar con Kamasqa"
+                  >
+                    <span>Ver qué incluye tu web</span>
+                    <span class="flip-icon" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="card-footer-actions cta-footer-actions">
+                  <a
+                    href={wa("Hola Kamasqa 👋\n\nVi el espacio de 'Aquí podría estar tu proyecto' en su portafolio y deseo cotizar una página web para mi negocio.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-cta-card-primary"
+                    aria-label="Cotizar proyecto de página web por WhatsApp"
+                  >
+                    <span>Cotizar mi Web</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+
+                  <a
+                    href={wa("Hola Kamasqa 👋\n\nMe gustaría agendar una reunión de asesoría web gratuita de 15 minutos para conversar sobre mi proyecto.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-cta-card-secondary"
+                    aria-label="Agendar asesoría gratuita de 15 minutos"
+                  >
+                    <span>Asesoría Gratis</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARA POSTERIOR -->
+            <article class="card-face card-back cta-back-face">
+              <div class="back-header">
+                <div class="back-header-left">
+                  <span class="badge-num badge-cta-num">★</span>
+                  <div class="back-client-info">
+                    <strong class="back-client-name">Tu Proyecto con Kamasqa</strong>
+                    <span class="back-tagline">Proceso & Garantías</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn-flip-back flip-to-front-btn"
+                  aria-label="Volver a la portada de la tarjeta"
+                >
+                  <span>Volver</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="back-scroll-content">
+                <div class="back-section">
+                  <strong class="back-sub">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>¿Cómo lo hacemos realidad?:</span>
+                  </strong>
+                  <p class="back-p">
+                    En 4 etapas ágiles: diagnóstico estratégico, diseño de prototipo en Figma, desarrollo en código limpio de alta velocidad y lanzamiento con capacitación para tu equipo.
+                  </p>
+                </div>
+
+                <div class="back-section">
+                  <strong class="back-sub">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 14 14"></polyline>
+                    </svg>
+                    <span>Lo que incluye tu desarrollo:</span>
+                  </strong>
+                  <ul class="back-caps-list">
+                    <li>
+                      <span class="cap-check" aria-hidden="true">✓</span>
+                      <span>Diseño UI/UX 100% exclusivo adaptado a tu marca</span>
+                    </li>
+                    <li>
+                      <span class="cap-check" aria-hidden="true">✓</span>
+                      <span>Velocidad de carga de nivel élite (PageSpeed 95+)</span>
+                    </li>
+                    <li>
+                      <span class="cap-check" aria-hidden="true">✓</span>
+                      <span>Estructura orientada a vender y captar por WhatsApp</span>
+                    </li>
+                    <li>
+                      <span class="cap-check" aria-hidden="true">✓</span>
+                      <span>Dominio, hosting y correos corporativos configurados</span>
+                    </li>
+                    <li>
+                      <span class="cap-check" aria-hidden="true">✓</span>
+                      <span>Código de tu total propiedad, sin ataduras</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="back-section">
+                  <strong class="back-sub">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <span>Compromiso de entrega:</span>
+                  </strong>
+                  <p class="back-p">
+                    Plazos claros desde el primer día, reuniones de avance periódicas y garantía de satisfacción antes de publicar tu sitio.
+                  </p>
+                </div>
+
+                <div class="back-results-box cta-results-box">
+                  <strong class="results-kicker">¿Empezamos hoy?</strong>
+                  <p class="results-p">
+                    Conversemos 15 minutos sin compromiso sobre los objetivos de tu empresa y te entregamos un plan técnico con cotización formal.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Back Footer Actions -->
+              <div class="back-footer-actions cta-back-footer-actions">
+                <button
+                  type="button"
+                  class="btn-back-return flip-to-front-btn"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 19"></polyline>
+                  </svg>
+                  <span>Portada</span>
+                </button>
+
+                <a
+                  href={wa("Hola Kamasqa 👋\n\nQuiero cotizar mi proyecto web y agendar una llamada de diagnóstico gratuita.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-cta-card-primary cta-btn-wide"
+                  aria-label="Iniciar proyecto por WhatsApp"
+                >
+                  <span>Iniciar mi Proyecto Ahora</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Carousel Navigation Controls (Arrows + Dynamic Dots) -->
+      <div class="mobile-carousel-controls" aria-label="Controles del carrusel">
+        <button
+          type="button"
+          class="carousel-arrow-btn prev-btn"
+          id="carousel-prev"
+          aria-label="Proyecto anterior"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="carousel-dots-wrap" id="carousel-dots-container" role="tablist" aria-label="Diapositivas de proyectos">
+          {[...portfolioProjects, {}].map((_, i) => (
+            <button
+              type="button"
+              class={`carousel-dot ${i === 0 ? 'active' : ''}`}
+              data-dot-index={i}
+              role="tab"
+              aria-label={`Ir al caso ${i + 1}`}
+              aria-selected={i === 0 ? "true" : "false"}
+            ></button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          class="carousel-arrow-btn next-btn"
+          id="carousel-next"
+          aria-label="Siguiente proyecto"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom CTA Band -->
+  <section class="bento-footer-cta">
+    <div class="container-wide">
+      <div class="cta-box">
+        <div class="cta-text-col">
+          <span class="cta-eyebrow">DISEÑO & DESARROLLO A MEDIDA</span>
+          <h3 class="cta-h3">¿Listo para transformar tu presencia digital?</h3>
+          <p class="cta-p">Cada negocio exige una arquitectura particular. Conversemos sobre tu catálogo, requerimientos y objetivos comerciales.</p>
+        </div>
+        <div class="cta-btn-col">
+          <a
+            href={wa("Hola Kamasqa 👋\n\nEstuve revisando su Portafolio y deseo coordinar una sesión de asesoría web para mi proyecto.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-cta-whatsapp"
+          >
+            <span>Consultar por WhatsApp</span>
+            <span class="cta-arrow-circle" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { initPortfolio } from "../scripts/portfolio";
+  document.addEventListener("DOMContentLoaded", () => {
+    initPortfolio();
+  });
+</script>
+
